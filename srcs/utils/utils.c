@@ -53,8 +53,6 @@ int	close_all(int keycode, void *param)
 	mlx_destroy_image(data->mlx.mlx, data->mlx.img.image);
 	mlx_destroy_display(data->mlx.mlx);
 	free(data->mlx.mlx);
-	free(data->mlx.window);
-	free(data->mlx.img.image);
 	exit(EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }

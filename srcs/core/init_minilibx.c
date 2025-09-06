@@ -78,16 +78,14 @@ static int	handle_mouse(int button, int x, int y, void *param)
 	t_complex		mouse_complex;
 
 	data = (t_data *)param;
-	if (button == 4 || button == 5)
+	if ((button == 4 || button == 5) && data->needs_redraw == 0)
 	{
-		if (data->needs_redraw == 0)
-			mouse_complex = pixel_to_complex(x, y, &data->fractal, &data->size);
+		mouse_complex = pixel_to_complex(x, y, &data->fractal, &data->size);
 		if (button == 4)
 			data->fractal.zoom_level *= 1.1;
 		else
 			data->fractal.zoom_level /= 1.1;
-		if (data->needs_redraw == 0)
-			data->fractal.complex_center = mouse_complex;
+		data->fractal.complex_center = mouse_complex;
 		data->needs_redraw = 1;
 	}
 	return (EXIT_SUCCESS);
