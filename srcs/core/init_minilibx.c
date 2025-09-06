@@ -98,5 +98,21 @@ static int	handle_keypress(int keycode, void *param)
 	data = (t_data *)param;
 	if (keycode == 65307)
 		close_all(keycode, data);
+	else if (keycode == 65361 || keycode == 65363)
+	{
+		if (keycode == 65363)
+			data->fractal.complex_center.real += 0.1;
+		else
+			data->fractal.complex_center.real -= 0.1;
+		data->needs_redraw = 1;
+	}
+	else if (keycode == 65362 || keycode == 65364)
+	{
+		if (keycode == 65362)
+			data->fractal.complex_center.imaginary += 0.1;
+		else
+			data->fractal.complex_center.imaginary -= 0.1;
+		data->needs_redraw = 1;
+	}
 	return (EXIT_SUCCESS);
 }
