@@ -14,8 +14,8 @@
 
 static int	ft_isspace(int c)
 {
-	return (c == ' ' || c == '\t' || c == '\n' || \
-	c == '\v' || c == '\f' || c == '\r');
+	return (c == ' ' || c == '\t' || c == '\n'
+		|| c == '\v' || c == '\f' || c == '\r');
 }
 
 static int	ft_isplus_isminus(int c)
@@ -25,9 +25,9 @@ static int	ft_isplus_isminus(int c)
 
 static int	check_atoi_min(const char *nptr)
 {
-	if (nptr[0] == '2' && nptr[1] == '1' && nptr[2] == '4' && nptr[3] == '7' && \
-		nptr[4] == '4' && nptr[5] == '8' && nptr[6] == '3' && nptr[7] == '6' && \
-		nptr[8] == '4' && nptr[9] == '8')
+	if (nptr[0] == '2' && nptr[1] == '1' && nptr[2] == '4' && nptr[3] == '7'
+		&& nptr[4] == '4' && nptr[5] == '8' && nptr[6] == '3' && nptr[7] == '6'
+		&& nptr[8] == '4' && nptr[9] == '8')
 		return (1);
 	return (0);
 }
