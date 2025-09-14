@@ -16,6 +16,12 @@
 #define RED 0x00FF0000
 #define BLACK 0x000000
 
+#define ESC_KEY 65307
+#define LEFT_KEY 65361
+#define UP_KEY 65362
+#define RIGHT_KEY 65363
+#define DOWN_KEY 65364
+
 
 typedef enum e_fractal_type
 {

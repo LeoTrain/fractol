@@ -48,5 +48,4 @@ static int	choose_iteration_logic(t_data *data, t_complex complex)
 	else
 		return (julia_iterations(complex,
 				data->fractal.complex_julia, data->fractal.max_iterations));
-	return (EXIT_FAILURE);
 }

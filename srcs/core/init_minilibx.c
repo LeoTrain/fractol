@@ -30,7 +30,12 @@ int	init_minitlibx(t_data *data)
 	}
 	data->size.width = WIDTH;
 	data->size.height = HEIGHT;
-	init_mlx_img(data);
+	if (init_mlx_img(data) == EXIT_FAILURE)
+	{
+		mlx_destroy_window(data->mlx.mlx, data->mlx.window);
+		mlx_destroy_display(data->mlx.mlx);
+		return (EXIT_FAILURE);
+	}
 	mlx_hook(data->mlx.window, 2, 1L << 0, handle_keypress, data);
 	mlx_hook(data->mlx.window, 17, 0, close_all, data);
 	mlx_mouse_hook(data->mlx.window, handle_mouse, data);
@@ -96,19 +101,19 @@ static int	handle_keypress(int keycode, void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
-	if (keycode == 65307)
+	if (keycode == ESC_KEY)
 		close_all(keycode, data);
-	else if (keycode == 65361 || keycode == 65363)
+	else if (keycode == LEFT_KEY || keycode == RIGHT_KEY)
 	{
-		if (keycode == 65363)
+		if (keycode == RIGHT_KEY)
 			data->fractal.complex_center.real += 0.1;
 		else
 			data->fractal.complex_center.real -= 0.1;
 		data->needs_redraw = 1;
 	}
-	else if (keycode == 65362 || keycode == 65364)
+	else if (keycode == UP_KEY || keycode == DOWN_KEY)
 	{
-		if (keycode == 65362)
+		if (keycode == UP_KEY)
 			data->fractal.complex_center.imaginary += 0.1;
 		else
 			data->fractal.complex_center.imaginary -= 0.1;

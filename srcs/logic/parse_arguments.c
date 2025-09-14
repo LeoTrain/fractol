@@ -19,9 +19,7 @@ static int	set_julia(t_fractal *fractal, double c_real, double c_imaginary);
 int	parse_arguments(int argc, char **argv, t_fractal *fractal)
 {
 	if (argc < 2)
-	{
 		return (show_usage_and_exit());
-	}
 	if (ft_strcmp(argv[1], "mandelbrot") == 0)
 		return (set_mandelbrot(fractal));
 	else if (ft_strcmp(argv[1], "julia") == 0)
@@ -31,10 +29,7 @@ int	parse_arguments(int argc, char **argv, t_fractal *fractal)
 		return (set_julia(fractal, ft_atof(argv[2]), ft_atof(argv[3])));
 	}
 	else
-	{
 		return (show_usage_and_exit());
-	}
-	return (EXIT_FAILURE);
 }
 
 static int	set_julia(t_fractal *fractal, double c_real, double c_imaginary)
