@@ -24,12 +24,13 @@ int	iteration_to_color(int iteration, int iteration_max)
 	if (iteration < iteration_max)
 	{
 		t = (double)iteration / iteration_max;
-		r = (int)(255 * (0.5 + 0.5 * sin(t * 6.28)));
-		g = (int)(255 * (0.5 + 0.5 * sin(t * 6.28 + 2.09)));
-		b = (int)(255 * (0.5 + 0.5 * sin(t * 6.28 + 4.18)));
+		t = t * t * (3.0 - 2.0 * t);
+		r = (int)(255 * pow(t, 0.4));
+		g = (int)(255 * pow(t, 0.6));
+		b = (int)(255 * t);
 		return (create_trgb(0, r, g, b));
 	}
-	return (create_trgb(0, 0, 0, 0));
+	return (create_trgb(0, 10, 5, 25));
 }
 
 void	my_mlx_pixel_put(t_mlx_img *img, int x, int y, int color)

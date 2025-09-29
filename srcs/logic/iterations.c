@@ -12,6 +12,9 @@
 
 #include "../../includes/fractol.h"
 
+static int	has_not_diverged(double real, double imaginary,
+							int iteration_current, int iteration_max);
+
 int	mandelbrot_iterations(double c_real, double c_imaginary, int iteration_max)
 {
 	double	real;
@@ -23,8 +26,7 @@ int	mandelbrot_iterations(double c_real, double c_imaginary, int iteration_max)
 	real = 0;
 	imaginary = 0;
 	iteration_current = 0;
-	while (iteration_current < iteration_max
-		&& (real * real + imaginary * imaginary) <= 4)
+	while (has_not_diverged(real, imaginary, iteration_current, iteration_max))
 	{
 		real_new = real * real - imaginary * imaginary + c_real;
 		imaginary_new = 2 * real * imaginary + c_imaginary;
@@ -35,7 +37,7 @@ int	mandelbrot_iterations(double c_real, double c_imaginary, int iteration_max)
 	return (iteration_current);
 }
 
-int	julia_iterations(t_complex z, t_complex constant, int max_iterations)
+int	julia_iterations(t_complex z, t_complex constant, int iteration_max)
 {
 	double	real;
 	double	imaginary;
@@ -46,8 +48,7 @@ int	julia_iterations(t_complex z, t_complex constant, int max_iterations)
 	real = z.real;
 	imaginary = z.imaginary;
 	iteration_current = 0;
-	while (iteration_current < max_iterations
-		&& (real * real + imaginary * imaginary) <= 4)
+	while (has_not_diverged(real, imaginary, iteration_current, iteration_max))
 	{
 		real_new = real * real - imaginary * imaginary + constant.real;
 		imaginary_new = 2 * real * imaginary + constant.imaginary;
@@ -56,4 +57,11 @@ int	julia_iterations(t_complex z, t_complex constant, int max_iterations)
 		iteration_current++;
 	}
 	return (iteration_current);
+}
+
+static int	has_not_diverged(double real, double imaginary,
+							int iteration_current, int iteration_max)
+{
+	return (iteration_current < iteration_max
+		&& (real * real + imaginary * imaginary) <= 4);
 }

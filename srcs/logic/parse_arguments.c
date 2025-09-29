@@ -12,11 +12,11 @@
 
 #include "../../includes/fractol.h"
 
-static int	show_usage_and_exit(void);
-static int	set_mandelbrot(t_fractal *fractal);
-static int	set_julia(t_fractal *fractal, double c_real, double c_imaginary);
+static t_errors	show_usage_and_exit(void);
+static t_errors	set_mandelbrot(t_fractal *fractal);
+static t_errors	set_julia(t_fractal *fractal, double c_real, double c_imaginary);
 
-int	parse_arguments(int argc, char **argv, t_fractal *fractal)
+t_errors	parse_arguments(int argc, char **argv, t_fractal *fractal)
 {
 	if (argc < 2)
 		return (show_usage_and_exit());
@@ -32,7 +32,7 @@ int	parse_arguments(int argc, char **argv, t_fractal *fractal)
 		return (show_usage_and_exit());
 }
 
-static int	set_julia(t_fractal *fractal, double c_real, double c_imaginary)
+static t_errors	set_julia(t_fractal *fractal, double c_real, double c_imaginary)
 {
 	fractal->type = JULIA;
 	fractal->complex_center.real = 0;
@@ -41,23 +41,23 @@ static int	set_julia(t_fractal *fractal, double c_real, double c_imaginary)
 	fractal->complex_julia.imaginary = c_imaginary;
 	fractal->zoom_level = 1.0;
 	fractal->max_iterations = 100;
-	return (EXIT_SUCCESS);
+	return (ERROR_NONE);
 }
 
-static int	set_mandelbrot(t_fractal *fractal)
+static t_errors	set_mandelbrot(t_fractal *fractal)
 {
 	fractal->type = MANDELBROT;
 	fractal->complex_center.real = 0;
 	fractal->complex_center.imaginary = 0;
 	fractal->zoom_level = 1.0;
 	fractal->max_iterations = 100;
-	return (EXIT_SUCCESS);
+	return (ERROR_NONE);
 }
 
-static int	show_usage_and_exit(void)
+static t_errors	show_usage_and_exit(void)
 {
 	printf("Usages:\n");
 	printf("./fractol mandelbrot\n");
 	printf("./fractol julia <real> <imaginary>\n");
-	return (EXIT_FAILURE);
+	return (ERROR_ARGS);
 }

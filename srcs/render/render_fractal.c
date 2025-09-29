@@ -13,14 +13,13 @@
 #include "../../includes/fractol.h"
 
 static int	choose_iteration_logic(t_data *data, t_complex complex);
+static t_errors	rendering_loop(t_data *data, int x, int y);
 
-void	render_fractol(t_data *data)
+t_errors	render_fractol(t_data *data)
 {
 	int			x;
 	int			y;
-	t_complex	complex;
-	int			iteration;
-	int			color;
+	t_errors	error;
 
 	y = 0;
 	while (y < data->size.height)
@@ -28,16 +27,29 @@ void	render_fractol(t_data *data)
 		x = 0;
 		while (x < data->size.width)
 		{
-			complex = pixel_to_complex(x, y, &data->fractal, &data->size);
-			iteration = choose_iteration_logic(data, complex);
-			color = iteration_to_color(iteration, data->fractal.max_iterations);
-			my_mlx_pixel_put(&data->mlx.img, x, y, color);
+			error = rendering_loop(data, x, y);
+			if (error != ERROR_NONE)
+				return (error);
 			x++;
 		}
 		y++;
 	}
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.window,
 		data->mlx.img.image, 0, 0);
+	return (ERROR_NONE);
+}
+
+static t_errors	rendering_loop(t_data *data, int x, int y)
+{
+	t_complex	complex;
+	int			iteration;
+	int			color;
+
+	complex = pixel_to_complex(x, y, &data->fractal, &data->size);
+	iteration = choose_iteration_logic(data, complex);
+	color = iteration_to_color(iteration, data->fractal.max_iterations);
+	my_mlx_pixel_put(&data->mlx.img, x, y, color);
+	return (ERROR_NONE);
 }
 
 static int	choose_iteration_logic(t_data *data, t_complex complex)
