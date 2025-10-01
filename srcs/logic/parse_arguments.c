@@ -28,8 +28,7 @@ t_errors	parse_arguments(int argc, char **argv, t_fractal *fractal)
 			return (show_usage_and_exit());
 		return (set_julia(fractal, ft_atof(argv[2]), ft_atof(argv[3])));
 	}
-	else
-		return (show_usage_and_exit());
+	return (show_usage_and_exit());
 }
 
 static t_errors	set_julia(t_fractal *fractal, double c_real, double c_imaginary)

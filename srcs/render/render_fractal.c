@@ -88,5 +88,5 @@ static t_errors	choose_iteration_logic(t_data *data, t_complex complex,
 									data->fractal.max_iterations);
 		return (ERROR_NONE);
 	}
-	return (ERROR_UNKNOW);
+	return (ERROR_UNKNOWN);
 }

@@ -26,7 +26,10 @@ int	main(int argc, char **argv)
 		return (error);
 	error = render_fractol(&data);
 	if (error != ERROR_NONE)
+	{
+		cleanup_mlx(&data);
 		return (error);
+	}
 	mlx_loop(data.mlx.mlx);
 	return (EXIT_SUCCESS);
 }

@@ -37,6 +37,7 @@ t_errors	init_minitlibx(t_data *data)
 	{
 		mlx_destroy_window(data->mlx.mlx, data->mlx.window);
 		mlx_destroy_display(data->mlx.mlx);
+		free(data->mlx.mlx);
 		return (error);
 	}
 	mlx_hook(data->mlx.window, 2, 1L << 0, handle_keypress, data);
@@ -50,18 +51,13 @@ static t_errors	init_mlx_img(t_data *data)
 {
 	data->mlx.img.image = mlx_new_image(data->mlx.mlx, WIDTH, HEIGHT);
 	if (data->mlx.img.image == NULL)
-	{
-		mlx_destroy_window(data->mlx.mlx, data->mlx.window);
-		mlx_destroy_display(data->mlx.mlx);
 		return (ERROR_MLX_IMG);
-	}
 	data->mlx.img.address = mlx_get_data_addr(data->mlx.img.image,
 			&data->mlx.img.bit_per_pixel, &data->mlx.img.line_length,
 			&data->mlx.img.endian);
 	if (data->mlx.img.address == NULL)
 	{
-		mlx_destroy_window(data->mlx.mlx, data->mlx.window);
-		mlx_destroy_display(data->mlx.mlx);
+		mlx_destroy_image(data->mlx.mlx, data->mlx.img.image);
 		return (ERROR_MLX_IMG_ADDRESS);
 	}
 	return (ERROR_NONE);
@@ -69,12 +65,18 @@ static t_errors	init_mlx_img(t_data *data)
 
 static int	loop_loop(void *param)
 {
+	t_errors		error;
 	t_data			*data;
 
 	data = (t_data *)param;
 	if (data->needs_redraw == 1)
 	{
-		render_fractol(data);
+		error = render_fractol(data);
+		if (error != ERROR_NONE)
+		{
+			cleanup_mlx(data);
+			exit(error);
+		}
 		data->needs_redraw = 0;
 	}
 	return (EXIT_SUCCESS);

@@ -31,7 +31,7 @@ typedef enum	e_errors
 	ERROR_MLX_WINDOW,
 	ERROR_MLX_IMG,
 	ERROR_MLX_IMG_ADDRESS,
-	ERROR_UNKNOW
+	ERROR_UNKNOWN
 }	t_errors;
 
 typedef enum e_fractal_type
@@ -60,12 +60,11 @@ typedef struct s_size
 
 typedef struct s_mlx_img
 {
-    void	*image;
-    char	*address;
-    int		bit_per_pixel;
-    int		line_length;
-    int		endian;
-
+	void	*image;
+	char	*address;
+	int		bit_per_pixel;
+	int		line_length;
+	int		endian;
 } t_mlx_img;
 
 typedef struct s_mlx_data
@@ -96,6 +95,7 @@ typedef struct s_data
 double	ft_atof(const char *str);
 int		ft_strcmp(char *s1, char *s2);
 
+void	cleanup_mlx(t_data *data);
 int		close_all(int keycode, void *param);
 t_errors	my_mlx_pixel_put(t_mlx_img *img, int x, int y, int color);
 t_errors	iteration_to_color(int iteration, int iteration_max, int *color);

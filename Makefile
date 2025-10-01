@@ -9,7 +9,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRCS = srcs/core/main.c srcs/core/init_minilibx.c\
 	   srcs/logic/parse_arguments.c srcs/logic/complex.c srcs/logic/iterations.c\
 	   srcs/render/render_fractal.c\
-	   srcs/utils/utils.c srcs/utils/ft.c
+	   srcs/utils/close.c srcs/utils/color.c srcs/utils/pixel.c srcs/utils/str.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
