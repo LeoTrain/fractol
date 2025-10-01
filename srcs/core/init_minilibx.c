@@ -12,66 +12,71 @@
 
 #include "../../includes/fractol.h"
 
-static int	init_mlx_img(t_data *data);
-static int	handle_keypress(int keycode, void *param);
-static int	handle_mouse(int button, int x, int y, void *param);
-static int	loop_loop(void *param);
+static t_errors	init_mlx_img(t_data *data);
+static int		handle_keypress(int keycode, void *param);
+static int		handle_mouse(int button, int x, int y, void *param);
+static int		loop_loop(void *param);
 
-int	init_minitlibx(t_data *data)
+t_errors	init_minitlibx(t_data *data)
 {
+	t_errors	error;
+
 	data->mlx.mlx = mlx_init();
 	if (data->mlx.mlx == NULL)
-		return (EXIT_FAILURE);
+		return (ERROR_MLX_DISPLAY);
 	data->mlx.window = mlx_new_window(data->mlx.mlx, WIDTH, HEIGHT, "Fractol");
 	if (data->mlx.window == NULL)
 	{
 		mlx_destroy_display(data->mlx.mlx);
-		return (EXIT_FAILURE);
+		return (ERROR_MLX_WINDOW);
 	}
 	data->size.width = WIDTH;
 	data->size.height = HEIGHT;
-	if (init_mlx_img(data) == EXIT_FAILURE)
+	error = init_mlx_img(data);
+	if (error != ERROR_NONE)
 	{
 		mlx_destroy_window(data->mlx.mlx, data->mlx.window);
 		mlx_destroy_display(data->mlx.mlx);
-		return (EXIT_FAILURE);
+		free(data->mlx.mlx);
+		return (error);
 	}
 	mlx_hook(data->mlx.window, 2, 1L << 0, handle_keypress, data);
 	mlx_hook(data->mlx.window, 17, 0, close_all, data);
 	mlx_mouse_hook(data->mlx.window, handle_mouse, data);
 	mlx_loop_hook(data->mlx.mlx, loop_loop, data);
-	return (EXIT_SUCCESS);
+	return (ERROR_NONE);
 }
 
-static int	init_mlx_img(t_data *data)
+static t_errors	init_mlx_img(t_data *data)
 {
 	data->mlx.img.image = mlx_new_image(data->mlx.mlx, WIDTH, HEIGHT);
 	if (data->mlx.img.image == NULL)
-	{
-		mlx_destroy_window(data->mlx.mlx, data->mlx.window);
-		mlx_destroy_display(data->mlx.mlx);
-		return (EXIT_FAILURE);
-	}
+		return (ERROR_MLX_IMG);
 	data->mlx.img.address = mlx_get_data_addr(data->mlx.img.image,
 			&data->mlx.img.bit_per_pixel, &data->mlx.img.line_length,
 			&data->mlx.img.endian);
 	if (data->mlx.img.address == NULL)
 	{
-		mlx_destroy_window(data->mlx.mlx, data->mlx.window);
-		mlx_destroy_display(data->mlx.mlx);
-		return (EXIT_FAILURE);
+		mlx_destroy_image(data->mlx.mlx, data->mlx.img.image);
+		return (ERROR_MLX_IMG_ADDRESS);
 	}
-	return (EXIT_SUCCESS);
+	return (ERROR_NONE);
 }
 
 static int	loop_loop(void *param)
 {
+	t_errors		error;
 	t_data			*data;
 
 	data = (t_data *)param;
 	if (data->needs_redraw == 1)
 	{
-		render_fractol(data);
+		error = render_fractol(data);
+		if (error != ERROR_NONE)
+		{
+			cleanup_mlx(data);
+			exit(error);
+		}
 		data->needs_redraw = 0;
 	}
 	return (EXIT_SUCCESS);
@@ -85,7 +90,7 @@ static int	handle_mouse(int button, int x, int y, void *param)
 	data = (t_data *)param;
 	if ((button == 4 || button == 5) && data->needs_redraw == 0)
 	{
-		mouse_complex = pixel_to_complex(x, y, &data->fractal, &data->size);
+		pixel_to_complex(x, y, data, &mouse_complex);
 		if (button == 4)
 			data->fractal.zoom_level *= 1.1;
 		else

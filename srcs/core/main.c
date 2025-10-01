@@ -14,14 +14,22 @@
 
 int	main(int argc, char **argv)
 {
-	t_data	data;
+	t_errors	error;
+	t_data		data;
 
 	ft_memset(&data, 0, sizeof(t_data));
-	if (parse_arguments(argc, argv, &data.fractal) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	if (init_minitlibx(&data) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	render_fractol(&data);
+	error = parse_arguments(argc, argv, &data.fractal);
+	if (error != ERROR_NONE)
+		return (error);
+	error = init_minitlibx(&data);
+	if (error != ERROR_NONE)
+		return (error);
+	error = render_fractol(&data);
+	if (error != ERROR_NONE)
+	{
+		cleanup_mlx(&data);
+		return (error);
+	}
 	mlx_loop(data.mlx.mlx);
 	return (EXIT_SUCCESS);
 }
