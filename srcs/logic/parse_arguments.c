@@ -6,7 +6,7 @@
 /*   By: leberton <leberton@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:37:37 by leberton          #+#    #+#             */
-/*   Updated: 2025/10/01 16:48:25 by leberton         ###   ########.fr       */
+/*   Updated: 2025/10/01 16:55:18 by leberton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_errors	parse_arguments(int argc, char **argv, t_fractal *fractal)
 	t_errors	error;
 
 	if (argc < 2)
-		return (show_error(ERROR_ARGS_INVALID_AMOUNT));
+		return (ERROR_ARGS_INVALID_AMOUNT);
 	error = check_for_fractal(argc, argv, fractal);
 	if (error != ERROR_NONE)
 		return (error);
