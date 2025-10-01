@@ -6,14 +6,14 @@
 /*   By: leberton <leberton@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:42:40 by leberton          #+#    #+#             */
-/*   Updated: 2025/09/06 17:42:43 by leberton         ###   ########.fr       */
+/*   Updated: 2025/10/01 17:09:46 by leberton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/fractol.h"
 
 static t_errors	choose_iteration_logic(t_data *data, t_complex complex,
-									   int *iteration);
+					int *iteration);
 static t_errors	rendering_logic(t_data *data, int x, int y);
 static t_errors	rendering_loop(t_data *data);
 
@@ -64,7 +64,7 @@ static t_errors	rendering_logic(t_data *data, int x, int y)
 	error = choose_iteration_logic(data, complex, &iteration);
 	if (error != ERROR_NONE)
 		return (error);
-	error = iteration_to_color( iteration, data->fractal.max_iterations, &color);
+	error = iteration_to_color(iteration, data->fractal.max_iterations, &color);
 	if (error != ERROR_NONE)
 		return (error);
 	error = my_mlx_pixel_put(&data->mlx.img, x, y, color);
@@ -74,18 +74,21 @@ static t_errors	rendering_logic(t_data *data, int x, int y)
 }
 
 static t_errors	choose_iteration_logic(t_data *data, t_complex complex,
-								  int *iteration)
+					int *iteration)
 {
+	int			max_iterations;
+	t_complex	julia_complex;
+
+	max_iterations = data->fractal.max_iterations;
 	if (data->fractal.type == MANDELBROT)
 	{
-		*iteration = mandelbrot_iterations(complex,
-									 	data->fractal.max_iterations);
+		*iteration = mandelbrot_iterations(complex, max_iterations);
 		return (ERROR_NONE);
 	}
 	else if (data->fractal.type == JULIA)
 	{
-		*iteration = julia_iterations(complex, data->fractal.complex_julia,
-									data->fractal.max_iterations);
+		julia_complex = data->fractal.complex_julia;
+		*iteration = julia_iterations(complex, julia_complex, max_iterations);
 		return (ERROR_NONE);
 	}
 	return (ERROR_UNKNOWN);

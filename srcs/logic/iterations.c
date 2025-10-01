@@ -6,14 +6,14 @@
 /*   By: leberton <leberton@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:35:15 by leberton          #+#    #+#             */
-/*   Updated: 2025/09/06 17:35:17 by leberton         ###   ########.fr       */
+/*   Updated: 2025/10/01 17:07:10 by leberton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/fractol.h"
 
 static int	has_not_diverged(double real, double imaginary,
-							int iteration_current, int iteration_max);
+				int iteration_current, int iteration_max);
 
 int	mandelbrot_iterations(t_complex complex, int iteration_max)
 {

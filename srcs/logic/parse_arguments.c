@@ -6,7 +6,7 @@
 /*   By: leberton <leberton@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:37:37 by leberton          #+#    #+#             */
-/*   Updated: 2025/10/01 16:55:18 by leberton         ###   ########.fr       */
+/*   Updated: 2025/10/01 17:06:53 by leberton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 static t_errors	check_julia_validity(int argc, char **argv);
 static t_errors	set_mandelbrot(t_fractal *fractal);
-static t_errors	set_julia(t_fractal *fractal, double c_real, double c_imaginary);
+static t_errors	set_julia(t_fractal *fractal, double c_real,
+					double c_imaginary);
 static t_errors	check_for_fractal(int argc, char **argv, t_fractal *fractal);
 
 t_errors	parse_arguments(int argc, char **argv, t_fractal *fractal)

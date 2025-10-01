@@ -6,7 +6,7 @@ MLX = $(MLX_DIR)/libmlx_Linux.a
 MLX_FLAGS = -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
-SRCS = srcs/core/main.c srcs/core/init_minilibx.c\
+SRCS = srcs/core/main.c srcs/core/init_minilibx.c srcs/core/hooks.c\
 	   srcs/logic/parse_arguments.c srcs/logic/complex.c srcs/logic/iterations.c\
 	   srcs/render/render_fractal.c\
 	   srcs/utils/close.c srcs/utils/color.c srcs/utils/pixel.c srcs/utils/parsing.c srcs/utils/errors.c
