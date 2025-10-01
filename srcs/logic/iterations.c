@@ -15,7 +15,7 @@
 static int	has_not_diverged(double real, double imaginary,
 							int iteration_current, int iteration_max);
 
-int	mandelbrot_iterations(double c_real, double c_imaginary, int iteration_max)
+int	mandelbrot_iterations(t_complex complex, int iteration_max)
 {
 	double	real;
 	double	real_new;
@@ -28,8 +28,8 @@ int	mandelbrot_iterations(double c_real, double c_imaginary, int iteration_max)
 	iteration_current = 0;
 	while (has_not_diverged(real, imaginary, iteration_current, iteration_max))
 	{
-		real_new = real * real - imaginary * imaginary + c_real;
-		imaginary_new = 2 * real * imaginary + c_imaginary;
+		real_new = real * real - imaginary * imaginary + complex.real;
+		imaginary_new = 2 * real * imaginary + complex.imaginary;
 		real = real_new;
 		imaginary = imaginary_new;
 		iteration_current++;

@@ -78,8 +78,8 @@ static t_errors	choose_iteration_logic(t_data *data, t_complex complex,
 {
 	if (data->fractal.type == MANDELBROT)
 	{
-		*iteration = mandelbrot_iterations(complex.real, complex.imaginary,
-									 		data->fractal.max_iterations);
+		*iteration = mandelbrot_iterations(complex,
+									 	data->fractal.max_iterations);
 		return (ERROR_NONE);
 	}
 	else if (data->fractal.type == JULIA)

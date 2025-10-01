@@ -103,7 +103,7 @@ t_errors	iteration_to_color(int iteration, int iteration_max, int *color);
 t_errors	parse_arguments(int argc, char **argv, t_fractal *fractal);
 t_errors	init_minitlibx(t_data *data);
 t_errors	pixel_to_complex(int x, int y, t_data *data, t_complex *complex);
-int		mandelbrot_iterations(double c_real, double c_imaginary, int iteration_max);
+int			mandelbrot_iterations(t_complex complex, int iteration_max);
 int		julia_iterations(t_complex z, t_complex constant, int iteration_max);
 t_errors	render_fractol(t_data *data);
 
