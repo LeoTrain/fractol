@@ -1,7 +1,5 @@
 #include "../../includes/fractol.h"
 
-static void	cleanup_mlx(t_data *data);
-
 int	close_all(int keycode, void *param)
 {
 	t_data	*data;

@@ -26,6 +26,8 @@ t_errors	parse_arguments(int argc, char **argv, t_fractal *fractal)
 	{
 		if (argc != 4)
 			return (show_usage_and_exit());
+		if (!is_valid_number(argv[2]) || !is_valid_number(argv[3]))
+			return (show_usage_and_exit());
 		return (set_julia(fractal, ft_atof(argv[2]), ft_atof(argv[3])));
 	}
 	return (show_usage_and_exit());
