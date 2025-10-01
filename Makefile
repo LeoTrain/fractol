@@ -1,9 +1,9 @@
 NAME = fractol
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -std=gnu11
+CFLAGS = -Wall -Wextra -Werror
 MLX_DIR = minilibx-linux
 MLX = $(MLX_DIR)/libmlx_Linux.a
-MLX_FLAGS = -L$(MLX_DIR) -L/usr/lib -I$(MLX_DIR) -lXext -lX11 -lm
+MLX_FLAGS = -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 SRCS = srcs/core/main.c srcs/core/init_minilibx.c\
@@ -14,7 +14,7 @@ OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(MLX) $(OBJS)
+$(NAME): $(OBJS) $(MLX) $(LIBFT)
 	$(CC) -g $(OBJS) $(LIBFT) $(MLX) $(MLX_FLAGS) -o $(NAME)
 
 $(LIBFT):
@@ -24,15 +24,15 @@ $(MLX):
 	@make -C $(MLX_DIR)
 
 %.o: %.c
-	$(CC) -g $(CFLAGS) -I/usr/include -I$(MLX_DIR) -O3 -c $< -o $@
+	$(CC) -g $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 clean:
-	@make clean -C $(MLX_DIR)
-	@make clean -C $(LIBFT_DIR)
 	rm -f $(OBJS)
+	@make clean -C $(LIBFT_DIR)
+	@make clean -C $(MLX_DIR)
 
 fclean: clean
-	@make fclean -C $(LIBFT_DIR)
 	rm -f $(NAME)
+	@make fclean -C $(LIBFT_DIR)
 
 re: fclean all
