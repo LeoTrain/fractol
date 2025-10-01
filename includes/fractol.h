@@ -94,6 +94,7 @@ typedef struct s_data
 
 double	ft_atof(const char *str);
 int		ft_strcmp(char *s1, char *s2);
+int		is_valid_number(const char *str);
 
 void	cleanup_mlx(t_data *data);
 int		close_all(int keycode, void *param);
