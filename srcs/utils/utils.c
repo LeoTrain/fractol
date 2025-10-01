@@ -14,7 +14,7 @@
 
 static int	create_trgb(int t, int r, int g, int b);
 
-int	iteration_to_color(int iteration, int iteration_max)
+t_errors	iteration_to_color(int iteration, int iteration_max, int *color)
 {
 	int		r;
 	int		g;
@@ -28,20 +28,23 @@ int	iteration_to_color(int iteration, int iteration_max)
 		r = (int)(255 * pow(t, 0.4));
 		g = (int)(255 * pow(t, 0.6));
 		b = (int)(255 * t);
-		return (create_trgb(0, r, g, b));
+		*color = create_trgb(0, r, g, b);
+		return (ERROR_NONE);
 	}
-	return (create_trgb(0, 10, 5, 25));
+	*color = create_trgb(0, 10, 5, 25);
+	return (ERROR_NONE);
 }
 
-void	my_mlx_pixel_put(t_mlx_img *img, int x, int y, int color)
+t_errors	my_mlx_pixel_put(t_mlx_img *img, int x, int y, int color)
 {
 	char	*dest;
 
 	if (x < 0 || y < 0 || x >= WIDTH || y >= HEIGHT)
-		return ;
+		return (ERROR_NONE);
 	dest = img->address + (y * img->line_length + x
 			* (img->bit_per_pixel / 8));
 	*(unsigned int *)dest = color;
+	return (ERROR_NONE);
 }
 
 int	close_all(int keycode, void *param)

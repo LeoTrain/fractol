@@ -12,17 +12,16 @@
 
 #include "../../includes/fractol.h"
 
-t_complex	pixel_to_complex(int x, int y, t_fractal *fractal, t_size *size)
+t_errors	pixel_to_complex(int x, int y, t_data *data, t_complex *complex)
 {
-	t_complex	complex;
 	t_complex	base_complex;
 	double		view_factor;
 
-	base_complex = fractal->complex_center;
-	view_factor = 4.0 / fractal->zoom_level;
-	complex.real = base_complex.real + (((double)x / size->width - 0.5)
+	base_complex = data->fractal.complex_center;
+	view_factor = 4.0 / data->fractal.zoom_level;
+	complex->real = base_complex.real + (((double)x / data->size.width - 0.5)
 			* view_factor);
-	complex.imaginary = base_complex.imaginary - (
-			((double)y / size->height - 0.5) * view_factor);
-	return (complex);
+	complex->imaginary = base_complex.imaginary - (
+			((double)y / data->size.height - 0.5) * view_factor);
+	return (ERROR_NONE);
 }

@@ -31,6 +31,7 @@ typedef enum	e_errors
 	ERROR_MLX_WINDOW,
 	ERROR_MLX_IMG,
 	ERROR_MLX_IMG_ADDRESS,
+	ERROR_UNKNOW
 }	t_errors;
 
 typedef enum e_fractal_type
@@ -96,12 +97,12 @@ double	ft_atof(const char *str);
 int		ft_strcmp(char *s1, char *s2);
 
 int		close_all(int keycode, void *param);
-void		my_mlx_pixel_put(t_mlx_img *img, int x, int y, int color);
-int		iteration_to_color(int iteration, int iteration_max);
+t_errors	my_mlx_pixel_put(t_mlx_img *img, int x, int y, int color);
+t_errors	iteration_to_color(int iteration, int iteration_max, int *color);
 
 t_errors	parse_arguments(int argc, char **argv, t_fractal *fractal);
 t_errors	init_minitlibx(t_data *data);
-t_complex	pixel_to_complex(int x, int y, t_fractal *fractal, t_size *size);
+t_errors	pixel_to_complex(int x, int y, t_data *data, t_complex *complex);
 int		mandelbrot_iterations(double c_real, double c_imaginary, int iteration_max);
 int		julia_iterations(t_complex z, t_complex constant, int iteration_max);
 t_errors	render_fractol(t_data *data);

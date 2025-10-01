@@ -24,7 +24,8 @@ int	main(int argc, char **argv)
 	error = init_minitlibx(&data);
 	if (error != ERROR_NONE)
 		return (error);
-	render_fractol(&data);
+	if (render_fractol(&data) != ERROR_NONE)
+		return (EXIT_FAILURE);
 	mlx_loop(data.mlx.mlx);
 	return (EXIT_SUCCESS);
 }
