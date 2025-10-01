@@ -6,7 +6,7 @@
 /*   By: leberton <leberton@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:30:58 by leberton          #+#    #+#             */
-/*   Updated: 2025/09/06 17:30:59 by leberton         ###   ########.fr       */
+/*   Updated: 2025/10/01 16:48:58 by leberton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@ int	main(int argc, char **argv)
 	ft_memset(&data, 0, sizeof(t_data));
 	error = parse_arguments(argc, argv, &data.fractal);
 	if (error != ERROR_NONE)
-		return (error);
+		return (show_error(error));
 	error = init_minitlibx(&data);
 	if (error != ERROR_NONE)
-		return (error);
+		return (show_error(error));
 	error = render_fractol(&data);
 	if (error != ERROR_NONE)
 	{
+		show_error(error);
 		cleanup_mlx(&data);
 		return (error);
 	}

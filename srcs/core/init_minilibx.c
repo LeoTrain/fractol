@@ -6,16 +6,16 @@
 /*   By: leberton <leberton@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:31:12 by leberton          #+#    #+#             */
-/*   Updated: 2025/09/06 17:31:13 by leberton         ###   ########.fr       */
+/*   Updated: 2025/10/01 16:49:38 by leberton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/fractol.h"
 
 static t_errors	init_mlx_img(t_data *data);
-static int		handle_keypress(int keycode, void *param);
-static int		handle_mouse(int button, int x, int y, void *param);
-static int		loop_loop(void *param);
+static int		hook_handle_keypress(int keycode, void *param);
+static int		hook_handle_mouse(int button, int x, int y, void *param);
+static int		hook_handle_loop(void *param);
 
 t_errors	init_minitlibx(t_data *data)
 {
@@ -40,10 +40,10 @@ t_errors	init_minitlibx(t_data *data)
 		free(data->mlx.mlx);
 		return (error);
 	}
-	mlx_hook(data->mlx.window, 2, 1L << 0, handle_keypress, data);
+	mlx_hook(data->mlx.window, 2, 1L << 0, hook_handle_keypress, data);
 	mlx_hook(data->mlx.window, 17, 0, close_all, data);
-	mlx_mouse_hook(data->mlx.window, handle_mouse, data);
-	mlx_loop_hook(data->mlx.mlx, loop_loop, data);
+	mlx_mouse_hook(data->mlx.window, hook_handle_mouse, data);
+	mlx_loop_hook(data->mlx.mlx, hook_handle_loop, data);
 	return (ERROR_NONE);
 }
 
@@ -63,7 +63,7 @@ static t_errors	init_mlx_img(t_data *data)
 	return (ERROR_NONE);
 }
 
-static int	loop_loop(void *param)
+static int	hook_handle_loop(void *param)
 {
 	t_errors		error;
 	t_data			*data;
@@ -74,6 +74,7 @@ static int	loop_loop(void *param)
 		error = render_fractol(data);
 		if (error != ERROR_NONE)
 		{
+			show_error(error);
 			cleanup_mlx(data);
 			exit(error);
 		}
@@ -82,7 +83,7 @@ static int	loop_loop(void *param)
 	return (EXIT_SUCCESS);
 }
 
-static int	handle_mouse(int button, int x, int y, void *param)
+static int	hook_handle_mouse(int button, int x, int y, void *param)
 {
 	t_data			*data;
 	t_complex		mouse_complex;
@@ -101,7 +102,7 @@ static int	handle_mouse(int button, int x, int y, void *param)
 	return (EXIT_SUCCESS);
 }
 
-static int	handle_keypress(int keycode, void *param)
+static int	hook_handle_keypress(int keycode, void *param)
 {
 	t_data	*data;
 
