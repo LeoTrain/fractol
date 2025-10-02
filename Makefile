@@ -4,8 +4,8 @@ CFLAGS = -Wall -Wextra -Werror
 MLX_DIR = minilibx-linux
 MLX = $(MLX_DIR)/libmlx_Linux.a
 MLX_FLAGS = -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm
-LIBFT_DIR = libft
-LIBFT = $(LIBFT_DIR)/libft.a
+PRINTF_DIR = ft_printf
+PRINTF = $(PRINTF_DIR)/libftprintf.a
 SRCS = srcs/core/main.c srcs/core/init_minilibx.c srcs/core/hooks.c\
 	   srcs/logic/parse_arguments.c srcs/logic/complex.c srcs/logic/iterations.c\
 	   srcs/render/render_fractal.c\
@@ -14,11 +14,11 @@ OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(MLX) $(LIBFT)
-	$(CC) -g $(OBJS) $(LIBFT) $(MLX) $(MLX_FLAGS) -o $(NAME)
+$(NAME): $(OBJS) $(MLX) $(PRINTF)
+	$(CC) -g $(OBJS) $(PRINTF) $(MLX) $(MLX_FLAGS) -o $(NAME)
 
-$(LIBFT):
-	@make -C $(LIBFT_DIR)
+$(PRINTF):
+	@make -C $(PRINTF_DIR)
 
 $(MLX):
 	@make -C $(MLX_DIR)
@@ -28,11 +28,11 @@ $(MLX):
 
 clean:
 	rm -f $(OBJS)
-	@make clean -C $(LIBFT_DIR)
+	@make clean -C $(PRINTF_DIR)
 	@make clean -C $(MLX_DIR)
 
 fclean: clean
 	rm -f $(NAME)
-	@make fclean -C $(LIBFT_DIR)
+	@make fclean -C $(PRINTF_DIR)
 
 re: fclean all

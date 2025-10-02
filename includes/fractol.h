@@ -19,7 +19,7 @@
 # include <sys/time.h>
 
 # include "../minilibx-linux/mlx.h"
-# include "../libft/libft.h"
+# include "../ft_printf/headers/ft_printf.h"
 
 # include "fractol_constants.h"
 # include "fractol_types.h"
