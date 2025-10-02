@@ -50,6 +50,7 @@ static int	get_sign(const char **str)
 		(*str)++;
 	return (sign);
 }
+
 static void	skip_to_decimal(const char **str)
 {
 	while (**str && **str != '.')
