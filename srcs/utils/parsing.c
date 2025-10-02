@@ -12,33 +12,48 @@
 
 #include "../../includes/fractol.h"
 
+static int	get_sign(const char **str);
+static void	skip_to_decimal(const char **str);
+
 double	ft_atof(const char *str)
 {
-	double	res;
-	double	res2;
-	char	*c;
-	int		len;
+	double	integer_part;
+	double	decimal_part;
 	int		sign;
+	int		decimal_length;
 
-	c = (char *)str;
+	sign = get_sign(&str);
+	integer_part = (double)ft_atoi(str);
+	skip_to_decimal(&str);
+	if (*str == '.')
+		str++;
+	decimal_part = (double)ft_atoi(str);
+	if (decimal_part < 0)
+		decimal_part = -decimal_part;
+	decimal_length = ft_strlen(str);
+	while (decimal_length--)
+		decimal_part /= 10;
+	return (sign * (integer_part + decimal_part));
+}
+
+static int	get_sign(const char **str)
+{
+	int	sign;
+
 	sign = 1;
-	if (*c == '-')
+	if (**str == '-')
 	{
 		sign = -1;
-		c++;
+		(*str)++;
 	}
-	else if (*c == '+')
-		c++;
-	res = (double)ft_atoi(c);
-	while (*c && *c != '.')
-		c++;
-	res2 = (double)ft_atoi(c);
-	if (res2 < 0)
-		res2 = -res2;
-	len = ft_strlen(c);
-	while (len--)
-		res2 /= 10;
-	return (sign * (res + res2));
+	else if (**str == '+')
+		(*str)++;
+	return (sign);
+}
+static void	skip_to_decimal(const char **str)
+{
+	while (**str && **str != '.')
+		(*str)++;
 }
 
 int	ft_strcmp(char *s1, char *s2)
@@ -55,15 +70,20 @@ int	is_valid_number(const char *str)
 {
 	int	i;
 	int	has_digit;
+	int	dot_count;
 
 	i = 0;
 	has_digit = 0;
+	dot_count = 0;
 	if (*str == '-' || *str == '+')
 		i++;
 	while (str[i])
 	{
 		if (str[i] == '.')
 		{
+			dot_count++;
+			if (dot_count > 1)
+				return (0);
 			i++;
 			continue ;
 		}
