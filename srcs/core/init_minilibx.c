@@ -62,9 +62,12 @@ static t_errors	init_mlx_img(t_data *data)
 
 static t_errors	init_mlx_hooks(t_data *data)
 {
-	mlx_hook(data->mlx.window, 2, 1L << 0, hook_handle_keypress, data);
-	mlx_hook(data->mlx.window, 17, 0, close_all, data);
-	mlx_mouse_hook(data->mlx.window, hook_handle_mouse, data);
+	mlx_hook(data->mlx.window, 2, 1L << 0,
+		(int (*)(void *))hook_handle_keypress, data);
+	mlx_hook(data->mlx.window, 17, 0,
+		(int (*)(void *))close_all, data);
+	mlx_mouse_hook(data->mlx.window,
+		(int (*)(void *))hook_handle_mouse, data);
 	mlx_loop_hook(data->mlx.mlx, hook_handle_loop, data);
 	return (ERROR_NONE);
 }
