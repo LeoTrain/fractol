@@ -12,11 +12,10 @@
 
 #include "../../includes/fractol.h"
 
-int	close_all(int keycode, void *param)
+int	close_all(void *param)
 {
 	t_data	*data;
 
-	(void)keycode;
 	data = (t_data *)param;
 	cleanup_mlx(data);
 	exit(EXIT_SUCCESS);

@@ -30,7 +30,7 @@ int			is_valid_number(const char *str);
 
 t_errors	show_error(t_errors error);
 void		cleanup_mlx(t_data *data);
-int			close_all(int keycode, void *param);
+int			close_all(void *param);
 
 t_errors	my_mlx_pixel_put(t_mlx_img *img, int x, int y, int color);
 t_errors	iteration_to_color(int iteration, int iteration_max, int *color);

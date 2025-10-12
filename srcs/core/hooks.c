@@ -57,7 +57,7 @@ int	hook_handle_keypress(int keycode, void *param)
 
 	data = (t_data *)param;
 	if (keycode == ESC_KEY)
-		close_all(keycode, data);
+		close_all(data);
 	else if (keycode == LEFT_KEY || keycode == RIGHT_KEY)
 	{
 		if (keycode == RIGHT_KEY)
