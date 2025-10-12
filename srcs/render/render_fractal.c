@@ -91,5 +91,10 @@ static t_errors	choose_iteration_logic(t_data *data, t_complex complex,
 		*iteration = julia_iterations(complex, julia_complex, max_iterations);
 		return (ERROR_NONE);
 	}
+	else if (data->fractal.type == SIERPINSKI)
+	{
+		*iteration = sierpinski_iterations(complex, max_iterations);
+		return (ERROR_NONE);
+	}
 	return (ERROR_UNKNOWN);
 }
