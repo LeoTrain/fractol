@@ -1,8 +1,8 @@
 NAME = fractol
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Wno-cast-function-type
-MLX_DIR = minilibx-linux-asahi
-MLX = $(MLX_DIR)/libmlx_Linux.a
+MLX_DIR = minilibx
+MLX = $(MLX_DIR)/libmlx_asahi.a
 MLX_FLAGS = -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm
 PRINTF_DIR = ft_printf
 PRINTF = $(PRINTF_DIR)/libftprintf.a
@@ -20,18 +20,12 @@ $(NAME): $(OBJS) $(PRINTF)
 $(PRINTF):
 	@make -C $(PRINTF_DIR)
 
-# MLX is already compiled, skip compilation
-#$(MLX):
-#	@make -C $(MLX_DIR)
-
 %.o: %.c
 	$(CC) -g $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
 	@make clean -C $(PRINTF_DIR)
-	# Don't clean pre-compiled minilibx
-	#@make clean -C $(MLX_DIR)
 
 fclean: clean
 	rm -f $(NAME)

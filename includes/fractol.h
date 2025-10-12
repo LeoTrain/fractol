@@ -18,7 +18,7 @@
 # include <math.h>
 # include <sys/time.h>
 
-# include "../minilibx-linux-asahi/mlx.h"
+# include "../minilibx/mlx_asahi.h"
 # include "../ft_printf/headers/ft_printf.h"
 
 # include "fractol_constants.h"
