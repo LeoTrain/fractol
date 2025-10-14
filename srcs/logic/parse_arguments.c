@@ -17,14 +17,13 @@ static t_errors	check_julia_validity(int argc, char **argv);
 static t_errors	set_mandelbrot(t_fractal *fractal);
 static t_errors	set_julia(t_fractal *fractal, double c_real,
 					double c_imaginary);
-static t_errors	set_sierpinski(t_fractal *fractal);
 static t_errors	check_for_fractal(int argc, char **argv, t_fractal *fractal);
 
 t_errors	parse_arguments(int argc, char **argv, t_fractal *fractal)
 {
 	t_errors	error;
 
-	if (argc < 2)
+	if (argc < MINARGC)
 		return (ERROR_ARGS_INVALID_AMOUNT);
 	error = check_for_fractal(argc, argv, fractal);
 	if (error != ERROR_NONE)
@@ -45,24 +44,22 @@ static t_errors	check_for_fractal(int argc, char **argv, t_fractal *fractal)
 			return (error);
 		return (set_julia(fractal, ft_atof(argv[2]), ft_atof(argv[3])));
 	}
-	else if (ft_strcmp(argv[1], "sierpinski") == 0)
-		return (set_sierpinski(fractal));
 	return (ERROR_ARGS_INVALID_FRACTAL);
 }
 
 static t_errors	set_mandelbrot(t_fractal *fractal)
 {
 	fractal->type = MANDELBROT;
-	fractal->complex_center.real = 0;
-	fractal->complex_center.imaginary = 0;
-	fractal->zoom_level = 1.0;
-	fractal->max_iterations = 100;
+	fractal->complex_center.real = REALSTART;
+	fractal->complex_center.imaginary = IMAGINARYSTART;
+	fractal->zoom_level = ZOOMSTART;
+	fractal->max_iterations = MAXITERATIONS;
 	return (ERROR_NONE);
 }
 
 static t_errors	check_julia_validity(int argc, char **argv)
 {
-	if (argc != 4)
+	if (argc != ARGCJULIA)
 		return (ERROR_ARGS_INVALID_AMOUNT);
 	if (!is_valid_number(argv[2]) || !is_valid_number(argv[3]))
 		return (ERROR_ARGS_INVALID_NBR);
@@ -72,21 +69,11 @@ static t_errors	check_julia_validity(int argc, char **argv)
 static t_errors	set_julia(t_fractal *fractal, double c_real, double c_imaginary)
 {
 	fractal->type = JULIA;
-	fractal->complex_center.real = 0;
-	fractal->complex_center.imaginary = 0;
+	fractal->complex_center.real = REALSTART;
+	fractal->complex_center.imaginary = IMAGINARYSTART;
 	fractal->complex_julia.real = c_real;
 	fractal->complex_julia.imaginary = c_imaginary;
-	fractal->zoom_level = 1.0;
-	fractal->max_iterations = 100;
-	return (ERROR_NONE);
-}
-
-static t_errors	set_sierpinski(t_fractal *fractal)
-{
-	fractal->type = SIERPINSKI;
-	fractal->complex_center.real = -1.0;
-	fractal->complex_center.imaginary = -1.0;
-	fractal->zoom_level = 1.0;
-	fractal->max_iterations = 100;
+	fractal->zoom_level = ZOOMSTART;
+	fractal->max_iterations = MAXITERATIONS;
 	return (ERROR_NONE);
 }

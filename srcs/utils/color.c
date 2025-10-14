@@ -24,14 +24,15 @@ t_errors	iteration_to_color(int iteration, int iteration_max, int *color)
 	if (iteration < iteration_max)
 	{
 		t = (double)iteration / iteration_max;
-		t = t * t * (3.0 - 2.0 * t);
-		r = (int)(255 * pow(t, 0.4));
-		g = (int)(255 * pow(t, 0.6));
-		b = (int)(255 * t);
+		t = t * t * (SMOOTHSTEP_COEF_1 - SMOOTHSTEP_COEF_2 * t);
+		r = (int)(COLOR_MAX_INTENSITY * pow(t, COLOR_EXP_RED));
+		g = (int)(COLOR_MAX_INTENSITY * pow(t, COLOR_EXP_GREEN));
+		b = (int)(COLOR_MAX_INTENSITY * t);
 		*color = create_trgb(0, r, g, b);
 		return (ERROR_NONE);
 	}
-	*color = create_trgb(0, 10, 5, 25);
+	*color = create_trgb(NON_DIVERGENT_T, NON_DIVERGENT_R, NON_DIVERGENT_G,
+					  NON_DIVERGENT_B);
 	return (ERROR_NONE);
 }
 

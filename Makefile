@@ -1,7 +1,7 @@
 NAME = fractol
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Wno-cast-function-type
-MLX_DIR = minilibx
+CFLAGS = -Wall -Wextra -Werror
+MLX_DIR = minilibx-linux
 MLX = $(MLX_DIR)/libmlx_Linux.a
 MLX_FLAGS = -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm
 PRINTF_DIR = ft_printf
@@ -14,8 +14,11 @@ OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(PRINTF)
+$(NAME): $(OBJS) $(PRINTF) $(MLX)
 	$(CC) -g $(OBJS) $(PRINTF) $(MLX) $(MLX_FLAGS) -o $(NAME)
+
+$(MLX):
+	@make -C $(MLX_DIR)
 
 $(PRINTF):
 	@make -C $(PRINTF_DIR)
@@ -26,6 +29,7 @@ $(PRINTF):
 clean:
 	rm -f $(OBJS)
 	@make clean -C $(PRINTF_DIR)
+	@make clean -C $(MLX_DIR)
 
 fclean: clean
 	rm -f $(NAME)

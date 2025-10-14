@@ -32,7 +32,6 @@ typedef enum e_fractal_type
 {
 	MANDELBROT,
 	JULIA,
-	SIERPINSKI
 }	t_fractal_type;
 
 typedef struct s_tile_position

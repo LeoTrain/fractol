@@ -18,7 +18,7 @@ int	hook_handle_loop(void *param)
 	t_data			*data;
 
 	data = (t_data *)param;
-	if (data->needs_redraw == 1)
+	if (data->needs_redraw == NEEDSREDRAW)
 	{
 		error = render_fractol(data);
 		if (error != ERROR_NONE)
@@ -27,7 +27,7 @@ int	hook_handle_loop(void *param)
 			cleanup_mlx(data);
 			exit(error);
 		}
-		data->needs_redraw = 0;
+		data->needs_redraw = NEEDSNOTREDRAW;
 	}
 	return (EXIT_SUCCESS);
 }
@@ -38,15 +38,16 @@ int	hook_handle_mouse(int button, int x, int y, void *param)
 	t_complex		mouse_complex;
 
 	data = (t_data *)param;
-	if ((button == 4 || button == 5) && data->needs_redraw == 0)
+	if ((button == SCROLLUPKEY || button == SCROLLDOWNKEY)
+		&& data->needs_redraw == NEEDSNOTREDRAW)
 	{
 		pixel_to_complex(x, y, data, &mouse_complex);
-		if (button == 4)
+		if (button == SCROLLDOWNKEY)
 			data->fractal.zoom_level *= 1.1;
 		else
 			data->fractal.zoom_level /= 1.1;
 		data->fractal.complex_center = mouse_complex;
-		data->needs_redraw = 1;
+		data->needs_redraw = NEEDSREDRAW;
 	}
 	return (EXIT_SUCCESS);
 }
@@ -64,7 +65,7 @@ int	hook_handle_keypress(int keycode, void *param)
 			data->fractal.complex_center.real += 0.1;
 		else
 			data->fractal.complex_center.real -= 0.1;
-		data->needs_redraw = 1;
+		data->needs_redraw = NEEDSREDRAW;
 	}
 	else if (keycode == UP_KEY || keycode == DOWN_KEY)
 	{
@@ -72,7 +73,7 @@ int	hook_handle_keypress(int keycode, void *param)
 			data->fractal.complex_center.imaginary += 0.1;
 		else
 			data->fractal.complex_center.imaginary -= 0.1;
-		data->needs_redraw = 1;
+		data->needs_redraw = NEEDSREDRAW;
 	}
 	return (EXIT_SUCCESS);
 }

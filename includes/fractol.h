@@ -18,7 +18,7 @@
 # include <math.h>
 # include <sys/time.h>
 
-# include "../minilibx/mlx_Linux.h"
+# include "../minilibx-linux/mlx.h"
 # include "../ft_printf/headers/ft_printf.h"
 
 # include "fractol_constants.h"
@@ -41,7 +41,6 @@ t_errors	pixel_to_complex(int x, int y, t_data *data, t_complex *complex);
 int			mandelbrot_iterations(t_complex complex, int iteration_max);
 int			julia_iterations(t_complex z, t_complex constant,
 				int iteration_max);
-int			sierpinski_iterations(t_complex point, int iteration_max);
 t_errors	render_fractol(t_data *data);
 
 int			hook_handle_loop(void *param);
