@@ -25,7 +25,7 @@ int	mandelbrot_iterations(t_complex complex, int iteration_max)
 
 	real = 0;
 	imaginary = 0;
-	iteration_current = 0;
+	iteration_current = ITERATION_START;
 	while (has_not_diverged(real, imaginary, iteration_current, iteration_max))
 	{
 		real_new = real * real - imaginary * imaginary + complex.real;
@@ -47,7 +47,7 @@ int	julia_iterations(t_complex z, t_complex constant, int iteration_max)
 
 	real = z.real;
 	imaginary = z.imaginary;
-	iteration_current = 0;
+	iteration_current = ITERATION_START;
 	while (has_not_diverged(real, imaginary, iteration_current, iteration_max))
 	{
 		real_new = real * real - imaginary * imaginary + constant.real;

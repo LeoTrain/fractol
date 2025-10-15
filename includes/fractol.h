@@ -20,7 +20,6 @@
 # include <mlx.h>
 
 # include "../ft_printf/headers/ft_printf.h"
-
 # include "fractol_constants.h"
 # include "fractol_types.h"
 

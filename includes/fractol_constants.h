@@ -19,6 +19,8 @@
 # define SIGN_PLUS 1
 # define SIGN_MINUS -1
 
+# define ITERATION_START 0
+
 # define WIDTH 1080
 # define HEIGHT 720
 
@@ -75,5 +77,17 @@
 # define MSG_ERROR_INVALID_AMOUNT "Error: Invalid arguments amount.\n"
 # define MSG_ERROR_INVALID_FRACTAL "Error: Invalid fractal name.\n"
 # define MSG_SHOW_USAGE "Usages:\n./fractol mandelbrot\n./fractol julia <real> <imaginary>\n"
+
+# define SMOOTHSTEP_COEF_1 3.0
+# define SMOOTHSTEP_COEF_2 2.0
+# define COLOR_MAX_INTENSITY 255
+# define COLOR_EXP_RED 0.4
+# define COLOR_EXP_GREEN 0.6
+# define NON_DIVERGENT_T 0
+# define NON_DIVERGENT_R 10
+# define NON_DIVERGENT_G 5
+# define NON_DIVERGENT_B 25
+
+# define BITS 8
 
 #endif
