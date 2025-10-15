@@ -32,7 +32,7 @@ t_errors	iteration_to_color(int iteration, int iteration_max, int *color)
 		return (ERROR_NONE);
 	}
 	*color = create_trgb(ALPHA_TRANSPARENT, DEFAULT_RED,
-					DEFAULT_GREEN, DEFAULT_BLUE);
+			DEFAULT_GREEN, DEFAULT_BLUE);
 	return (ERROR_NONE);
 }
 

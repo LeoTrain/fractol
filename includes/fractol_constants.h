@@ -78,7 +78,8 @@
 # define MSG_ERROR_INVALID_NBR "Error: argument is not a valid number.\n"
 # define MSG_ERROR_INVALID_AMOUNT "Error: Invalid arguments amount.\n"
 # define MSG_ERROR_INVALID_FRACTAL "Error: Invalid fractal name.\n"
-# define MSG_SHOW_USAGE "Usages:\n./fractol mandelbrot\n./fractol julia <real> <imaginary>\n"
+# define MSG_SHOW_USAGE "Usages:\n./fractol mandelbrot\n./fractol julia <real>\
+	<imaginary>\n"
 
 # define SMOOTHSTEP_COEF_1 3.0
 # define SMOOTHSTEP_COEF_2 2.0

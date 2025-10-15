@@ -45,7 +45,7 @@ int	hook_handle_mouse(int button, int x, int y, void *param)
 	t_complex		mouse_complex;
 
 	data = (t_data *)param;
-	if ( (button == MOUSE_SCROLL_UP || button == MOUSE_SCROLL_DOWN)
+	if ((button == MOUSE_SCROLL_UP || button == MOUSE_SCROLL_DOWN)
 		&& data->needs_redraw == FALSE)
 	{
 		pixel_to_complex(x, y, data, &mouse_complex);
@@ -82,8 +82,8 @@ int	hook_handle_keypress(int keycode, void *param)
 	data = (t_data *)param;
 	if (keycode == KEY_ESC)
 		close_all(data);
-	else if (keycode == KEY_LEFT || keycode == KEY_RIGHT ||
-			keycode == KEY_UP || keycode == KEY_DOWN)
+	else if (keycode == KEY_LEFT || keycode == KEY_RIGHT
+		|| keycode == KEY_UP || keycode == KEY_DOWN)
 	{
 		add_movement_step_to_shift(&data->shift, keycode);
 		data->needs_redraw = TRUE;
