@@ -1,14 +1,7 @@
 NAME = fractol
 CC = cc
-<<<<<<< HEAD
 CFLAGS = -Wall -Wextra -Werror -Wno-cast-function-type
 MLX_FLAGS = -L/usr/local/lib -lmlx -lXext -lX11 -lm -lz
-=======
-CFLAGS = -Wall -Wextra -Werror
-MLX_DIR = minilibx-linux
-MLX = $(MLX_DIR)/libmlx_Linux.a
-MLX_FLAGS = -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm
->>>>>>> 24094187fb3b45e97cb589def9bd26e983ef943f
 PRINTF_DIR = ft_printf
 PRINTF = $(PRINTF_DIR)/libftprintf.a
 SRCS = srcs/core/main.c srcs/core/init_minilibx.c srcs/core/hooks.c\
@@ -19,13 +12,8 @@ OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-<<<<<<< HEAD
 $(NAME): $(OBJS) $(PRINTF)
 	$(CC) -g $(OBJS) $(PRINTF) $(MLX_FLAGS) -o $(NAME)
-=======
-$(NAME): $(OBJS) $(PRINTF) $(MLX)
-	$(CC) -g $(OBJS) $(PRINTF) $(MLX) $(MLX_FLAGS) -o $(NAME)
->>>>>>> 24094187fb3b45e97cb589def9bd26e983ef943f
 
 $(MLX):
 	@make -C $(MLX_DIR)
