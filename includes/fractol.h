@@ -17,8 +17,8 @@
 # include <stdlib.h>
 # include <math.h>
 # include <sys/time.h>
+# include <mlx.h>
 
-# include "../minilibx/mlx_Linux.h"
 # include "../ft_printf/headers/ft_printf.h"
 
 # include "fractol_constants.h"
