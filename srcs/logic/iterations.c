@@ -59,45 +59,9 @@ int	julia_iterations(t_complex z, t_complex constant, int iteration_max)
 	return (iteration_current);
 }
 
-int			sierpinski_iterations(t_complex point, int iteration_max)
-{
-	double	x;
-	double	y;
-	int		i;
-	int		count;
-
-	x = (point.real + 2.0) * 0.5;
-	y = (point.imaginary + 2.0) * 0.5;
-
-	count = 0;
-	i = 0;
-	while (i < iteration_max)
-	{
-		if (x < 0.5)
-		{
-			x = 2.0 * x;
-			y = 2.0 * y;
-		}
-		else if (y < 0.5)
-		{
-			x = 2.0 * x - 1.0;
-			y = 2.0 * y;
-		}
-		else
-		{
-			x = 2.0 * x - 1.0;
-			y = 2.0 * y - 1.0;
-		}
-		if (x >= 0.0 && x <= 1.0 && y >= 0.0 && y <= 1.0)
-			count++;
-		i++;
-	}
-	return (count);
-}
-
 static int	has_not_diverged(double real, double imaginary,
 							int iteration_current, int iteration_max)
 {
 	return (iteration_current < iteration_max
-		&& (real * real + imaginary * imaginary) <= 4);
+		&& (real * real + imaginary * imaginary) <= DIVERGENCE_THRESHOLD);
 }

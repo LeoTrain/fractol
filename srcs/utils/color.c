@@ -24,18 +24,19 @@ t_errors	iteration_to_color(int iteration, int iteration_max, int *color)
 	if (iteration < iteration_max)
 	{
 		t = (double)iteration / iteration_max;
-		t = t * t * (3.0 - 2.0 * t);
-		r = (int)(255 * pow(t, 0.4));
-		g = (int)(255 * pow(t, 0.6));
-		b = (int)(255 * t);
-		*color = create_trgb(0, r, g, b);
+		t = t * t * (SMOOTHING_COEFF_A - SMOOTHING_COEFF_B * t);
+		r = (int)(RGB_MAX_VALUE * pow(t, GAMMA_RED));
+		g = (int)(RGB_MAX_VALUE * pow(t, GAMMA_GREEN));
+		b = (int)(RGB_MAX_VALUE * t);
+		*color = create_trgb(ALPHA_TRANSPARENT, r, g, b);
 		return (ERROR_NONE);
 	}
-	*color = create_trgb(0, 10, 5, 25);
+	*color = create_trgb(ALPHA_TRANSPARENT, DEFAULT_RED,
+					DEFAULT_GREEN, DEFAULT_BLUE);
 	return (ERROR_NONE);
 }
 
 static int	create_trgb(int t, int r, int g, int b)
 {
-	return (t << 24 | r << 16 | g << 8 | b);
+	return (t << SHIFT_ALPHA | r << SHIFT_RED | g << SHIFT_GREEN | b);
 }

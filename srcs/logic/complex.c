@@ -18,10 +18,10 @@ t_errors	pixel_to_complex(int x, int y, t_data *data, t_complex *complex)
 	double		view_factor;
 
 	base_complex = data->fractal.complex_center;
-	view_factor = 4.0 / data->fractal.zoom_level;
+	view_factor = BASE_VIEW_FACTOR / data->fractal.zoom_level;
 	complex->real = base_complex.real + (
-			((double)x / data->size.width - 0.5) * view_factor);
+			((double)x / data->size.width - COORDINATE_CENTER_OFFSET) * view_factor);
 	complex->imaginary = base_complex.imaginary - (
-			((double)y / data->size.height - 0.5) * view_factor);
+			((double)y / data->size.height - COORDINATE_CENTER_OFFSET) * view_factor);
 	return (ERROR_NONE);
 }

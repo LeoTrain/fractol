@@ -25,7 +25,7 @@ t_errors	render_fractol(t_data *data)
 	if (error != ERROR_NONE)
 		return (error);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.window,
-		data->mlx.img.image, 0, 0);
+		data->mlx.img.image, BASE_COORD_IMG_X, BASE_COORD_IMG_Y);
 	return (ERROR_NONE);
 }
 
@@ -35,10 +35,10 @@ static t_errors	rendering_loop(t_data *data)
 	int			y;
 	t_errors	error;
 
-	y = 0;
+	y = BASE_COORD_IMG_Y;
 	while (y < data->size.height)
 	{
-		x = 0;
+		x = BASE_COORD_IMG_X;
 		while (x < data->size.width)
 		{
 			error = rendering_logic(data, x, y);
@@ -89,11 +89,6 @@ static t_errors	choose_iteration_logic(t_data *data, t_complex complex,
 	{
 		julia_complex = data->fractal.complex_julia;
 		*iteration = julia_iterations(complex, julia_complex, max_iterations);
-		return (ERROR_NONE);
-	}
-	else if (data->fractal.type == SIERPINSKI)
-	{
-		*iteration = sierpinski_iterations(complex, max_iterations);
 		return (ERROR_NONE);
 	}
 	return (ERROR_UNKNOWN);

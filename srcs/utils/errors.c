@@ -17,21 +17,19 @@ static t_errors	show_usage(void);
 t_errors	show_error(t_errors error)
 {
 	if (error == ERROR_ARGS)
-		ft_printf("Error: Invalid arguments.\n");
+		ft_printf(MSG_ERROR_INVALID_ARGS);
 	if (error == ERROR_ARGS_INVALID_NBR)
-		ft_printf("Error: argument is not a valid number.\n");
+		ft_printf(MSG_ERROR_INVALID_NBR);
 	if (error == ERROR_ARGS_INVALID_AMOUNT)
-		ft_printf("Error: Invalid arguments amount.\n");
+		ft_printf(MSG_ERROR_INVALID_AMOUNT);
 	if (error == ERROR_ARGS_INVALID_FRACTAL)
-		ft_printf("Error: Invalid fractal name.\n");
+		ft_printf(MSG_ERROR_INVALID_FRACTAL);
 	show_usage();
 	return (error);
 }
 
 static t_errors	show_usage(void)
 {
-	ft_printf("Usages:\n");
-	ft_printf("./fractol mandelbrot\n");
-	ft_printf("./fractol julia <real> <imaginary>\n");
+	ft_printf(MSG_SHOW_USAGE);
 	return (ERROR_ARGS);
 }

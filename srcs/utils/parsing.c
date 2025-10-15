@@ -32,7 +32,7 @@ double	ft_atof(const char *str)
 		decimal_part = -decimal_part;
 	decimal_length = ft_strlen(str);
 	while (decimal_length--)
-		decimal_part /= 10;
+		decimal_part /= BASE_DECIMAL;
 	return (sign * (integer_part + decimal_part));
 }
 
@@ -40,10 +40,10 @@ static int	get_sign(const char **str)
 {
 	int	sign;
 
-	sign = 1;
+	sign = SIGN_PLUS;
 	if (**str == '-')
 	{
-		sign = -1;
+		sign = SIGN_MINUS;
 		(*str)++;
 	}
 	else if (**str == '+')

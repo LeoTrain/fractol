@@ -18,7 +18,7 @@ int	hook_handle_loop(void *param)
 	t_data			*data;
 
 	data = (t_data *)param;
-	if (data->needs_redraw == 1)
+	if (data->needs_redraw == TRUE)
 	{
 		error = render_fractol(data);
 		if (error != ERROR_NONE)
@@ -27,7 +27,7 @@ int	hook_handle_loop(void *param)
 			cleanup_mlx(data);
 			exit(error);
 		}
-		data->needs_redraw = 0;
+		data->needs_redraw = FALSE;
 	}
 	return (EXIT_SUCCESS);
 }
@@ -38,15 +38,16 @@ int	hook_handle_mouse(int button, int x, int y, void *param)
 	t_complex		mouse_complex;
 
 	data = (t_data *)param;
-	if ((button == 4 || button == 5) && data->needs_redraw == 0)
+	if ( (button == MOUSE_SCROLL_UP || button == MOUSE_SCROLL_DOWN)
+		&& data->needs_redraw == FALSE)
 	{
 		pixel_to_complex(x, y, data, &mouse_complex);
-		if (button == 4)
-			data->fractal.zoom_level *= 1.1;
+		if (button == MOUSE_SCROLL_UP)
+			data->fractal.zoom_level *= ZOOM_FACTOR;
 		else
-			data->fractal.zoom_level /= 1.1;
+			data->fractal.zoom_level /= ZOOM_FACTOR;
 		data->fractal.complex_center = mouse_complex;
-		data->needs_redraw = 1;
+		data->needs_redraw = TRUE;
 	}
 	return (EXIT_SUCCESS);
 }
@@ -56,23 +57,23 @@ int	hook_handle_keypress(int keycode, void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
-	if (keycode == ESC_KEY)
+	if (keycode == KEY_ESC)
 		close_all(data);
-	else if (keycode == LEFT_KEY || keycode == RIGHT_KEY)
+	else if (keycode == KEY_LEFT || keycode == KEY_RIGHT)
 	{
-		if (keycode == RIGHT_KEY)
-			data->fractal.complex_center.real += 0.1;
+		if (keycode == KEY_RIGHT)
+			data->fractal.complex_center.real += MOVEMENT_STEP;
 		else
-			data->fractal.complex_center.real -= 0.1;
-		data->needs_redraw = 1;
+			data->fractal.complex_center.real -= MOVEMENT_STEP;
+		data->needs_redraw = TRUE;
 	}
-	else if (keycode == UP_KEY || keycode == DOWN_KEY)
+	else if (keycode == KEY_UP || keycode == KEY_DOWN)
 	{
-		if (keycode == UP_KEY)
-			data->fractal.complex_center.imaginary += 0.1;
+		if (keycode == KEY_UP)
+			data->fractal.complex_center.imaginary += MOVEMENT_STEP;
 		else
-			data->fractal.complex_center.imaginary -= 0.1;
-		data->needs_redraw = 1;
+			data->fractal.complex_center.imaginary -= MOVEMENT_STEP;
+		data->needs_redraw = TRUE;
 	}
 	return (EXIT_SUCCESS);
 }

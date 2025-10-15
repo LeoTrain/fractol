@@ -62,9 +62,9 @@ static t_errors	init_mlx_img(t_data *data)
 
 static t_errors	init_mlx_hooks(t_data *data)
 {
-	mlx_hook(data->mlx.window, 2, 1L << 0,
+	mlx_hook(data->mlx.window, EVENT_KEY_PRESS, 1L << 0,
 		hook_handle_keypress, data);
-	mlx_hook(data->mlx.window, 17, 0,
+	mlx_hook(data->mlx.window, EVENT_DESTROY_NOTIFY, 0,
 		close_all, data);
 	mlx_mouse_hook(data->mlx.window,
 		hook_handle_mouse, data);
