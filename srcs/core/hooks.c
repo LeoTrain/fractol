@@ -32,6 +32,13 @@ int	hook_handle_loop(void *param)
 	return (EXIT_SUCCESS);
 }
 
+static t_errors	reset_arrows_shift(t_arrows_shift *shift)
+{
+	shift->x = BASE_SHIFT_X;
+	shift->y = BASE_SHIFT_Y;
+	return (ERROR_NONE);
+}
+
 int	hook_handle_mouse(int button, int x, int y, void *param)
 {
 	t_data			*data;
@@ -46,10 +53,26 @@ int	hook_handle_mouse(int button, int x, int y, void *param)
 			data->fractal.zoom_level *= ZOOM_FACTOR;
 		else
 			data->fractal.zoom_level /= ZOOM_FACTOR;
+		reset_arrows_shift(&data->shift);
 		data->fractal.complex_center = mouse_complex;
 		data->needs_redraw = TRUE;
 	}
 	return (EXIT_SUCCESS);
+}
+
+static t_errors	add_movement_step_to_shift(t_arrows_shift *shift, int keycode)
+{
+	if (keycode == KEY_RIGHT)
+		shift->x += BASE_MOVEMENT_STEP;
+	else if (keycode == KEY_LEFT)
+		shift->x -= BASE_MOVEMENT_STEP;
+	else if (keycode == KEY_UP)
+		shift->y += BASE_MOVEMENT_STEP;
+	else if (keycode == KEY_DOWN)
+		shift->y -= BASE_MOVEMENT_STEP;
+	else
+		return (ERROR_UNKNOWN);
+	return (ERROR_NONE);
 }
 
 int	hook_handle_keypress(int keycode, void *param)
@@ -59,20 +82,10 @@ int	hook_handle_keypress(int keycode, void *param)
 	data = (t_data *)param;
 	if (keycode == KEY_ESC)
 		close_all(data);
-	else if (keycode == KEY_LEFT || keycode == KEY_RIGHT)
+	else if (keycode == KEY_LEFT || keycode == KEY_RIGHT ||
+			keycode == KEY_UP || keycode == KEY_DOWN)
 	{
-		if (keycode == KEY_RIGHT)
-			data->fractal.complex_center.real += MOVEMENT_STEP;
-		else
-			data->fractal.complex_center.real -= MOVEMENT_STEP;
-		data->needs_redraw = TRUE;
-	}
-	else if (keycode == KEY_UP || keycode == KEY_DOWN)
-	{
-		if (keycode == KEY_UP)
-			data->fractal.complex_center.imaginary += MOVEMENT_STEP;
-		else
-			data->fractal.complex_center.imaginary -= MOVEMENT_STEP;
+		add_movement_step_to_shift(&data->shift, keycode);
 		data->needs_redraw = TRUE;
 	}
 	return (EXIT_SUCCESS);

@@ -52,6 +52,12 @@ typedef struct s_size
 	int				height;
 }					t_size;
 
+typedef struct s_arrows_shift
+{
+	double			x;
+	double			y;
+}					t_arrows_shift;
+
 typedef struct s_mlx_img
 {
 	void			*image;
@@ -82,6 +88,7 @@ typedef struct s_data
 	t_mlx_data		mlx;
 	t_size			size;
 	t_fractal		fractal;
+	t_arrows_shift	shift;
 	int				needs_redraw;
 	long			last_scroll_time;
 }					t_data;

@@ -15,9 +15,6 @@ all: $(NAME)
 $(NAME): $(OBJS) $(PRINTF)
 	$(CC) -g $(OBJS) $(PRINTF) $(MLX_FLAGS) -o $(NAME)
 
-$(MLX):
-	@make -C $(MLX_DIR)
-
 $(PRINTF):
 	@make -C $(PRINTF_DIR)
 
@@ -27,7 +24,6 @@ $(PRINTF):
 clean:
 	rm -f $(OBJS)
 	@make clean -C $(PRINTF_DIR)
-	@make clean -C $(MLX_DIR)
 
 fclean: clean
 	rm -f $(NAME)

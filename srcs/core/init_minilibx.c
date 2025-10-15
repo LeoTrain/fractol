@@ -14,6 +14,7 @@
 
 static t_errors	init_mlx_img(t_data *data);
 static t_errors	init_mlx_hooks(t_data *data);
+static t_errors	init_data(t_data *data);
 
 t_errors	init_minitlibx(t_data *data)
 {
@@ -39,8 +40,16 @@ t_errors	init_minitlibx(t_data *data)
 	error = init_mlx_hooks(data);
 	if (error != ERROR_NONE)
 		return (error);
+	init_data(data);
+	return (ERROR_NONE);
+}
+
+static t_errors	init_data(t_data *data)
+{
 	data->size.width = WIDTH;
 	data->size.height = HEIGHT;
+	data->shift.x = BASE_SHIFT_X;
+	data->shift.y = BASE_SHIFT_Y;
 	return (ERROR_NONE);
 }
 
