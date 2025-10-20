@@ -48,7 +48,7 @@ clean:
 	@$(MAKE) -s clean -C $(PRINTF_DIR)
 
 fclean: clean
-	@printf "$(YELLOW)[FULL CLEAN]$(RESET) $(OBJS)\n"
+	@printf "$(YELLOW)[FULL CLEAN]$(RESET) $(NAME)\n"
 	@rm -f $(NAME)
 	@$(MAKE) -s fclean -C $(PRINTF_DIR)
 
