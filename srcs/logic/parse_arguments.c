@@ -36,7 +36,11 @@ static t_errors	check_for_fractal(int argc, char **argv, t_fractal *fractal)
 	t_errors	error;
 
 	if (ft_strcmp(argv[1], "mandelbrot") == STRCMP_OK)
+	{
+		if (argc != ARGC_MANDELBROT_SET)
+			return (ERROR_ARGS_INVALID_AMOUNT);
 		return (set_mandelbrot(fractal));
+	}
 	else if (ft_strcmp(argv[1], "julia") == STRCMP_OK)
 	{
 		error = check_julia_validity(argc, argv);

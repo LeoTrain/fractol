@@ -1,7 +1,7 @@
 NAME			:= fractol
 CC				:= cc
 
-CFLAGS			:= -Wall -Wextra -Werror -Wno-cast-function-type
+CFLAGS			:= -Wall -Wextra -Werror
 MLX_FLAGS		:= -L/usr/local/lib -lmlx -lXext -lX11 -lm -lz
 
 PRINTF_DIR		:= ft_printf

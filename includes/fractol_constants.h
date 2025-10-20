@@ -25,6 +25,7 @@
 # define HEIGHT 720
 
 # define ARGC_MIN 2
+# define ARGC_MANDELBROT_SET 2
 # define ARGC_JULIA_SET 4
 
 # define STRCMP_OK 0
